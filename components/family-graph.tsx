@@ -9,7 +9,10 @@ import {
   Controls,
   MiniMap,
   Panel,
+  Position,
   MarkerType,
+  useNodesState,
+  useEdgesState,
   type Node,
   type Edge,
   type NodeMouseHandler,
@@ -50,7 +53,7 @@ export function FamilyGraph({
 }) {
   const router = useRouter();
 
-  const { nodes, edges } = useMemo(() => {
+  const { initialNodes, initialEdges } = useMemo(() => {
     const minB = Math.min(...characters.map((c) => axisYear(c.birthYear ?? 0)));
     const colorOf = (slug: string) =>
       eras.find((e) => e.slug === slug)?.color ?? "#64748b";
@@ -81,6 +84,10 @@ export function FamilyGraph({
           id: c.slug,
           type: "person",
           position: { x: nx, y: bandTop + lane * LANE_H },
+          width: NODE_W,
+          height: 46,
+          sourcePosition: Position.Right,
+          targetPosition: Position.Left,
           data: {
             label: c.name,
             years: formatLifeRange(c.birthYear, c.deathYear, c.dateApprox),
@@ -115,8 +122,11 @@ export function FamilyGraph({
         };
       });
 
-    return { nodes, edges };
+    return { initialNodes: nodes, initialEdges: edges };
   }, [characters, relationships, eras]);
+
+  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [edges, , onEdgesChange] = useEdgesState(initialEdges);
 
   const onNodeClick: NodeMouseHandler = useCallback(
     (_, node) => {
@@ -130,6 +140,8 @@ export function FamilyGraph({
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
         onNodeClick={onNodeClick}
         fitView
