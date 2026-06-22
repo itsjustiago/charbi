@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  /* superfícies */
+  --color-ink: #0a0d13;
+  --color-surface: #111722;
+  --color-surface-2: #18202e;
+  --color-border: #25303f;
+  --color-border-soft: #1c2533;
+
+  /* texto */
+  --color-fg: #ecebe4;
+  --color-muted: #97a1b2;
+  --color-faint: #5c6678;
+
+  /* marca */
+  --color-accent: #d8b15a;
+  --color-accent-2: #e9c97c;
+
+  /* eras */
+  --color-era-pre: #6366f1;
+  --color-era-pat: #d97706;
+  --color-era-exo: #dc2626;
+  --color-era-jui: #0d9488;
+  --color-era-rei: #7c3aed;
+  --color-era-rp: #2563eb;
+  --color-era-exi: #0891b2;
+  --color-era-jes: #059669;
+  --color-era-cri: #e11d48;
+
+  --font-display: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* fundo subtil com textura de "pergaminho escuro" */
+.bg-grain {
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(216, 177, 90, 0.06), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(99, 102, 241, 0.07), transparent 55%);
+}
+
+::selection {
+  background: rgba(216, 177, 90, 0.28);
+  color: #fff;
+}
+
+/* scrollbar discreta */
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-faint);
+}
+
+/* React Flow — ajustes ao tema escuro */
+.react-flow__attribution {
+  display: none;
+}
+.react-flow__controls-button {
+  background: var(--color-surface-2) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-fg) !important;
+}
+.react-flow__controls-button:hover {
+  background: var(--color-border) !important;
+}
+.react-flow__controls-button svg {
+  fill: var(--color-fg);
+}
